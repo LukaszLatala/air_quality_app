@@ -5,6 +5,7 @@ import { apiKey } from "./Api/apiKey";
 const cityData = [
   {
     name: "Kraków",
+    id: 204,
     cords: {
       lat: "50.062006",
       lng: "19.940984",
@@ -23,15 +24,18 @@ class App extends Component {
   state = {
     cities: [],
   };
+  // kot
 
   getData = (e) => {
     e.preventDefault();
 
     const cityCords = JSON.parse(e.target.citySelect.value);
+    console.log(cityCords);
 
     axios
       .get(
         `https://airapi.airly.eu/v2/measurements/point?lat=${cityCords.lat}&lng=${cityCords.lng}`,
+        // `https://airapi.airly.eu/v2/installations/204`,
         {
           headers: {
             Accept: "application/json",
@@ -55,6 +59,7 @@ class App extends Component {
           <select name="citySelect" id="">
             {cityData.map((city) => {
               const jsonCords = JSON.stringify(city.cords);
+              console.log(jsonCords);
 
               return <option value={jsonCords}>{city.name}</option>;
             })}
