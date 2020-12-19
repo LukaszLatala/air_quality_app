@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { apiKey } from "./Api/apiKey";
+import Header from "./Components/Header/Header";
+import Footer from "./Components/Footer/Footer";
+
+import "./App.css";
+import Button from "@material-ui/core/Button";
 
 const cityData = [
   {
@@ -24,7 +29,6 @@ class App extends Component {
   state = {
     cities: [],
   };
-  // kot
 
   getData = (e) => {
     e.preventDefault();
@@ -48,40 +52,67 @@ class App extends Component {
         this.setState({
           cities: [...res.data.current.values],
         });
+        console.log(...res.data.current.values);
       })
       .catch((err) => console.log(err));
   };
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.getData}>
-          <select name="citySelect" id="">
-            {cityData.map((city) => {
-              const jsonCords = JSON.stringify(city.cords);
-              console.log(jsonCords);
+      <>
+        <Header />
 
-              return <option value={jsonCords}>{city.name}</option>;
-            })}
-          </select>
-          <button type="submit">search</button>
-        </form>
+        <div className="container">
+          <form onSubmit={this.getData}>
+            <select name="citySelect" id="" className="select-css">
+              {cityData.map((city) => {
+                const jsonCords = JSON.stringify(city.cords);
+                console.log(jsonCords);
 
-        <div>
-          {this.state.cities.map((el) => (
-            <ul>
-              <li>
-                {el.name} - {el.value}
-              </li>
-            </ul>
-          ))}
+                return <option value={jsonCords}>{city.name}</option>;
+              })}
+            </select>
+
+            <Button
+              className="contact_btn"
+              type="submit"
+              variant="contained"
+              color="default"
+            >
+              Search
+            </Button>
+          </form>
+
+          <div>
+            {this.state.cities.map((el) =>
+              this.state.cities[0].value > 10 ? (
+                <ul>
+                  <li style={{ color: "red" }}>
+                    {el.name} - {el.value}
+                  </li>
+                </ul>
+              ) : (
+                <ul>
+                  <li>
+                    {" "}
+                    {el.name} - {el.value}
+                  </li>
+                </ul>
+              )
+            )}
+          </div>
         </div>
-      </div>
+        <Footer />
+      </>
     );
   }
 }
 
 export default App;
+
+// okreslij warunki brzegowe dla poszczegolnych wartosci smogu
+// dodac
+// https://material-ui.com/components/snackbars/
 
 // select
 // https://material-ui.com/components/text-fields/
