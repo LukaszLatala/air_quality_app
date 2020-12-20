@@ -37,10 +37,12 @@
     background-size: .65em auto, 100%;
   }
   
-  ul{
+  /* ul{
     list-style-type: none;
   
-  }
-li{
+  } */
+p{
   margin-top: 10px;
+  font-size: 28px;
+  padding: 10px;
 }

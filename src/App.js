@@ -50,14 +50,16 @@ class App extends Component {
       .then((res) => {
         console.log(res);
         this.setState({
-          cities: [...res.data.current.values],
+          cities: [res.data.current.values],
         });
-        console.log(...res.data.current.values);
+        console.log(res.data.current.values);
+        console.log(res.data.current.values);
       })
       .catch((err) => console.log(err));
   };
 
   render() {
+    console.log(this.state.cities);
     return (
       <>
         <Header />
@@ -84,22 +86,44 @@ class App extends Component {
           </form>
 
           <div>
-            {this.state.cities.map((el) =>
-              this.state.cities[0].value > 10 ? (
-                <ul>
-                  <li style={{ color: "red" }}>
-                    {el.name} - {el.value}
-                  </li>
-                </ul>
+            {this.state.cities.map((city) =>
+              city[1].value > 25 || city[2].value > 50 ? (
+                <div>
+                  <h2>Wartości smogu wynoszą:</h2>
+                  <p
+                    style={{ color: "red" }}
+                    title="Norma średniego 24-godz. stężenia pyłu PM2,5: 25 µg/m | pyłu PM10: 50 µg/m  "
+                  >
+                    Wartość pyłu PM 2.5 wynosi - {city[1].value} μm
+                    <br />
+                    Wartość pyłu PM 2.5 wynosi - {city[2].value} μm
+                  </p>
+                </div>
               ) : (
-                <ul>
-                  <li>
+                <div>
+                  <h2>Wartości smogu wynoszą:</h2>
+                  <p title="Norma średniego 24-godz. stężenia pyłu PM2,5: 25 µg/m">
                     {" "}
-                    {el.name} - {el.value}
-                  </li>
-                </ul>
+                    Wartość pyłu PM 2.5 wynosi - {city[1].value} μm
+                    <br />
+                    Wartość pyłu PM 2.5 wynosi - {city[2].value} μm
+                  </p>
+                </div>
               )
             )}
+
+            {/* {this.state.cities.map(() =>
+              this.state.cities[0].value > 10 ? (
+                <p style={{ color: "red" }}>
+                  {this.state.cities[0].name} - {this.state.cities[0].value}
+                </p>
+              ) : (
+                <p>
+                  {" "}
+                  {this.state.cities[0].name} - {this.state.cities[0].value}
+                </p>
+              )
+            )} */}
           </div>
         </div>
         <Footer />
@@ -109,10 +133,3 @@ class App extends Component {
 }
 
 export default App;
-
-// okreslij warunki brzegowe dla poszczegolnych wartosci smogu
-// dodac
-// https://material-ui.com/components/snackbars/
-
-// select
-// https://material-ui.com/components/text-fields/
